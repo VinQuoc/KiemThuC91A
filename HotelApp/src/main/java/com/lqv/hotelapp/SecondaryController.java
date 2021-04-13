@@ -42,9 +42,11 @@ public class SecondaryController implements Initializable {
     @FXML
     private TextField txtKeywords;
     @FXML
-    private TextField txtIndex;
+    private TextField txtName;
     @FXML
     private TextField txtPrice;
+    @FXML
+    private TextField txtQuantity;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,11 +71,11 @@ public class SecondaryController implements Initializable {
 
             row.setOnMouseClicked(evt -> {
                 try {
-                    Room p = this.tbRooms.getSelectionModel().getSelectedItem();
-                    txtIndex.setText(p.getIndex());
-                    txtPrice.setText(p.getPrice().toString());
+                    Room r = this.tbRooms.getSelectionModel().getSelectedItem();
+                    txtName.setText(r.getName());
+                    txtPrice.setText(r.getPrice().toString());
 
-                    Category c = new CategoryService().getCateById(p.getCategoryId());
+                    Category c = new CategoryService().getCateById(r.getCategoryId());
 
                     this.cbCategories.getSelectionModel().select(c);
                 } catch (SQLException ex) {
@@ -87,18 +89,19 @@ public class SecondaryController implements Initializable {
     }
 
     public void addRoom(ActionEvent evt) {
-        Room p = new Room();
-        p.setIndex(txtIndex.getText());
-        p.setPrice(new BigDecimal(txtPrice.getText()));
+        Room r = new Room();
+        r.setName(txtName.getText());
+        r.setPrice(new BigDecimal(txtPrice.getText()));
+        r.setQuantity(Integer.parseInt(txtQuantity.getText()));
         Category c = this.cbCategories.getSelectionModel().getSelectedItem();
-        p.setCategoryId(c.getId());
+        r.setCategoryId(c.getId());
 
         Connection conn;
         try {
             conn = JdbcUtils.getConn();
 
             RoomService s = new RoomService(conn);
-            if (s.addRoom(p) == true) {
+            if (s.addRoom(r) == true) {
                 Utils.getAlertBox("SUCCESSFUL", Alert.AlertType.INFORMATION).show();
                 loadData("");
             } else {
@@ -116,16 +119,16 @@ public class SecondaryController implements Initializable {
         TableColumn colId = new TableColumn("Mã phòng");
         colId.setCellValueFactory(new PropertyValueFactory("id"));
 
-        TableColumn colIndex = new TableColumn("Tên phòng");
-        colIndex.setPrefWidth(200);
-        colIndex.setCellValueFactory(new PropertyValueFactory("index"));
+        TableColumn colName = new TableColumn("Tên phòng");
+        colName.setPrefWidth(90);
+        colName.setCellValueFactory(new PropertyValueFactory("name"));
 
         TableColumn colQuantity = new TableColumn("Số lượng giường");
-        colQuantity.setPrefWidth(200);
+        colQuantity.setPrefWidth(120);
         colQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
 
         TableColumn colPrice = new TableColumn("Gía thuê phòng");
-        colPrice.setPrefWidth(200);
+        colPrice.setPrefWidth(100);
         colPrice.setCellValueFactory(new PropertyValueFactory("price"));
 
         TableColumn colAction = new TableColumn();
@@ -162,7 +165,7 @@ public class SecondaryController implements Initializable {
             return cell;
         });
 
-        this.tbRooms.getColumns().addAll(colId, colIndex, colQuantity, colPrice, colAction);
+        this.tbRooms.getColumns().addAll(colId, colName, colQuantity, colPrice, colAction);
     }
 
     private void loadData(String kw) {

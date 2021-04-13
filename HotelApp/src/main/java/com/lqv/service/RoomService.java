@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author DELL
  */
 public class RoomService {
+
     private Connection conn;
 
     public RoomService(Connection conn) {
@@ -32,7 +33,8 @@ public class RoomService {
             throw new SQLDataException("error");
         }
 
-        String sql = "SELECT * FROM room WHERE index like concat('%', ?, '%') ORDER BY id DESC";
+//        String sql = "SELECT * FROM room WHERE name like concat('%', ?, '%') ORDER BY id DESC";
+        String sql = "SELECT * FROM room WHERE name == `N101`";
         PreparedStatement stm = this.getConn().prepareStatement(sql);
         stm.setString(1, kw);
 
@@ -41,11 +43,12 @@ public class RoomService {
         while (rs.next()) {
             Room r = new Room();
             r.setId(rs.getInt("id"));
-            r.setIndex(rs.getString("index"));
+            r.setName(rs.getString("name"));
             r.setQuantity(rs.getInt("quantity"));
             r.setPrice(rs.getBigDecimal("price"));
             r.setImage(rs.getString("image"));
             r.setCategoryId(rs.getInt("category_id"));
+
             rooms.add(r);
         }
 
@@ -54,9 +57,10 @@ public class RoomService {
 
     public boolean addRoom(Room p) {
         try {
-            String sql = "INSERT INTO room(index, quantity, price, category_id) VALUES(?, ?, ?, ?)";
+//            String sql = "INSERT INTO room(name, price, category_id) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO room(name, quantity, price, category_id) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);
-            stm.setString(1, p.getIndex());
+            stm.setString(1, p.getName());
             stm.setInt(2, p.getQuantity());
             stm.setBigDecimal(3, p.getPrice());
             stm.setInt(4, p.getCategoryId());

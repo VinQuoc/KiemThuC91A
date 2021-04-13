@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 public class Room {
     private int id;
-    private String index;
+    private String name;
     private int quantity;
     private BigDecimal price;
     private String image;
@@ -36,15 +36,15 @@ public class Room {
     /**
      * @return the index
      */
-    public String getIndex() {
-        return index;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param index the index to set
+     * @param name the name to set
      */
-    public void setIndex(String index) {
-        this.index = index;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
