@@ -23,12 +23,14 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
-  `id` int NOT NULL,
-  `user_emp` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `emp_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `id_employee_fk1` FOREIGN KEY (`id`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `id_employee_fk1_idx` (`emp_id`),
+  CONSTRAINT `id_employee_fk1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,31 +39,8 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES (1,'quanly','123',1),(2,'nhanvien','123',2),(3,'nhanvien2','123',3);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `admin` (
-  `id` int NOT NULL,
-  `user_adm` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin`
---
-
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -96,13 +75,13 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employee` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` int NOT NULL,
-  `email` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` int DEFAULT NULL,
+  `email` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,6 +90,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+INSERT INTO `employee` VALUES (1,'Admin',NULL,NULL,'admin'),(2,'Minh Tien',NULL,NULL,'employee'),(3,'Quoc Vin',NULL,NULL,'employee');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,13 +102,13 @@ DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `total_price` int NOT NULL,
-  `pay_status` tinyint(1) NOT NULL,
+  `pay_status` tinyint(1) DEFAULT NULL,
   `employee_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employee_fk2_idx` (`employee_id`),
-  CONSTRAINT `id_employee_fk2` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `id_employee_fk2` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,57 +122,57 @@ LOCK TABLES `order` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `order detail`
+-- Table structure for table `order_detail`
 --
 
-DROP TABLE IF EXISTS `order detail`;
+DROP TABLE IF EXISTS `order_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order detail` (
+CREATE TABLE `order_detail` (
   `id` int NOT NULL,
-  `timeStart` date NOT NULL,
-  `timeEnd` date NOT NULL,
+  `timeStart` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `timeEnd` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `room_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_room_fk1_idx` (`room_id`),
-  CONSTRAINT `id_order_fk_2` FOREIGN KEY (`id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `id_room_fk1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `id_order_fk_2` FOREIGN KEY (`id`) REFERENCES `order` (`id`),
+  CONSTRAINT `id_room_fk1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `order detail`
+-- Dumping data for table `order_detail`
 --
 
-LOCK TABLES `order detail` WRITE;
-/*!40000 ALTER TABLE `order detail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order detail` ENABLE KEYS */;
+LOCK TABLES `order_detail` WRITE;
+/*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `order owner`
+-- Table structure for table `order_owner`
 --
 
-DROP TABLE IF EXISTS `order owner`;
+DROP TABLE IF EXISTS `order_owner`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order owner` (
+CREATE TABLE `order_owner` (
   `id` int NOT NULL,
   `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `i.s_number` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `IS_number` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `id_order_fk1` FOREIGN KEY (`id`) REFERENCES `order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `id_order_fk1` FOREIGN KEY (`id`) REFERENCES `order` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `order owner`
+-- Dumping data for table `order_owner`
 --
 
-LOCK TABLES `order owner` WRITE;
-/*!40000 ALTER TABLE `order owner` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order owner` ENABLE KEYS */;
+LOCK TABLES `order_owner` WRITE;
+/*!40000 ALTER TABLE `order_owner` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -203,16 +183,16 @@ DROP TABLE IF EXISTS `room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room` (
-  `id` int NOT NULL,
-  `index` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quantity` int DEFAULT NULL,
   `price` int NOT NULL,
-  `image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_category_fk1_idx` (`category_id`),
   CONSTRAINT `id_category_fk1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,35 +201,37 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (1,'N101',1,150000,'phong1.1.jpg',2),(2,'N102',1,120000,'phong1.2.jpg',2),(3,'N103',1,170000,'phong1.3.jpg',2),(4,'N104',1,100000,'phong1.4.jpg',2),(5,'N105',1,300000,'phongV1.1.jpg',1),(6,'N106',1,350000,'phongV1.2.jpg',1),(7,'N201',2,200000,'phong2.1.jpg',2),(8,'N202',2,230000,'phong2.2.jpg',2),(9,'N203',2,500000,'phongV2.jpg',1);
+INSERT INTO `room` VALUES (1,'N101',1,150000,'phong1.1.jpg',2),(2,'N102',1,120000,'phong1.2.jpg',2),(3,'N103',1,170000,'phong1.3.jpg',2),(4,'N104',1,100000,'phong1.4.jpg',2),(5,'N105',1,300000,'phongV1.1.jpg',1),(6,'N106',1,350000,'phongV1.2.jpg',1),(7,'N201',2,200000,'phong2.1.jpg',2),(8,'N202',2,230000,'phong2.2.jpg',2),(9,'N203',2,500000,'phongV2.jpg',1),(12,'A113',5,555555,NULL,1);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `system rule`
+-- Table structure for table `rule`
 --
 
-DROP TABLE IF EXISTS `system rule`;
+DROP TABLE IF EXISTS `rule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `system rule` (
-  `id` int NOT NULL,
+CREATE TABLE `rule` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `rule` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
   `admin_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_admin_fk1_idx` (`admin_id`),
-  CONSTRAINT `id_admin_fk1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `id_employee3_fk1_idx` (`admin_id`),
+  CONSTRAINT `id_employee3_fk1` FOREIGN KEY (`admin_id`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `system rule`
+-- Dumping data for table `rule`
 --
 
-LOCK TABLES `system rule` WRITE;
-/*!40000 ALTER TABLE `system rule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `system rule` ENABLE KEYS */;
+LOCK TABLES `rule` WRITE;
+/*!40000 ALTER TABLE `rule` DISABLE KEYS */;
+INSERT INTO `rule` VALUES (1,'check_ISNUMBER','Xác thực thông tin người dùng thông qua CMND',0,1);
+/*!40000 ALTER TABLE `rule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -261,4 +243,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-08 23:39:29
+-- Dump completed on 2021-04-13 17:06:12
