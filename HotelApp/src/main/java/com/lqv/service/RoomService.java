@@ -33,8 +33,8 @@ public class RoomService {
             throw new SQLDataException("error");
         }
 
-//        String sql = "SELECT * FROM room WHERE name like concat('%', ?, '%') ORDER BY id DESC";
-        String sql = "SELECT * FROM room WHERE name == `N101`";
+        String sql = "SELECT * FROM room WHERE name like concat('%', ?, '%') ORDER BY id DESC";
+//        String sql = "SELECT * FROM room WHERE name == `N101`";
         PreparedStatement stm = this.getConn().prepareStatement(sql);
         stm.setString(1, kw);
 
