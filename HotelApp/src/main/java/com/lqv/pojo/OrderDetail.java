@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class OrderDetail {
     private int id;
-    private Date timeStart;
-    private Date timeEnd;
+    private String timeStart;
+    private String timeEnd;
     private int room_id;
 
     /**
@@ -31,34 +31,7 @@ public class OrderDetail {
         this.id = id;
     }
 
-    /**
-     * @return the timeStart
-     */
-    public Date getTimeStart() {
-        return timeStart;
-    }
-
-    /**
-     * @param timeStart the timeStart to set
-     */
-    public void setTimeStart(Date timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    /**
-     * @return the timeEnd
-     */
-    public Date getTimeEnd() {
-        return timeEnd;
-    }
-
-    /**
-     * @param timeEnd the timeEnd to set
-     */
-    public void setTimeEnd(Date timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
+    
     /**
      * @return the room_id
      */
@@ -71,5 +44,33 @@ public class OrderDetail {
      */
     public void setRoom_id(int room_id) {
         this.room_id = room_id;
+    }
+
+    /**
+     * @return the timeStart
+     */
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    /**
+     * @param timeStart the timeStart to set
+     */
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    /**
+     * @return the timeEnd
+     */
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    /**
+     * @param timeEnd the timeEnd to set
+     */
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
     }
 }

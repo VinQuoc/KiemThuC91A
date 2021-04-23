@@ -40,11 +40,12 @@ public class OrderOwnerService {
     
     public boolean addOrderOwner(OrderOwner o) {
         try {
-            String sql = "INSERT INTO order_owner(name , phone, IS_number) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO order_owner(id, name , phone, IS_number) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);
-            stm.setString(1, o.getName());
-            stm.setString(2, o.getPhone());
-            stm.setString(3, o.getIS_Number());
+            stm.setInt(1, o.getId());
+            stm.setString(2, o.getName());
+            stm.setString(3, o.getPhone());
+            stm.setString(4, o.getIS_Number());
 
             int rows = stm.executeUpdate();
 

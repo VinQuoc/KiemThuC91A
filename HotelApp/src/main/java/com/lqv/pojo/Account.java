@@ -11,7 +11,7 @@ package com.lqv.pojo;
  */
 public class Account {
     private int id;
-    private String user_emp;
+    private String username;
     private String password;
 
     /**
@@ -28,19 +28,6 @@ public class Account {
         this.id = id;
     }
 
-    /**
-     * @return the user_emp
-     */
-    public String getUser_emp() {
-        return user_emp;
-    }
-
-    /**
-     * @param user_emp the user_emp to set
-     */
-    public void setUser_emp(String user_emp) {
-        this.user_emp = user_emp;
-    }
 
     /**
      * @return the password
@@ -54,5 +41,19 @@ public class Account {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

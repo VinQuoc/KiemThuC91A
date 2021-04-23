@@ -49,10 +49,12 @@ public class LoginController implements Initializable {
             Connection conn = JdbcUtils.getConn();
             AccountService s = new AccountService(conn);
             
+//            System.out.println(txtUserName.getText());
+            
             if (s.checkAcc(txtUserName.getText(), txtPassword.getText())) {
-                Utils.getAlertBox("SUCCESSFUL", Alert.AlertType.INFORMATION).show();
+                Utils.getAlertBox("Đăng nhập thành công", Alert.AlertType.INFORMATION).show();
             }  else {
-                Utils.getAlertBox("FAILED", Alert.AlertType.WARNING).show();
+                Utils.getAlertBox("Đăng nhập thất bại", Alert.AlertType.WARNING).show();
             }
                 
         } catch (SQLException ex) {

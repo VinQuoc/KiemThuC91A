@@ -11,11 +11,11 @@ import java.math.BigDecimal;
  *
  * @author DELL
  */
-public class Order {
+public class OrderSell {
     private int id;
     private BigDecimal total_price;
     private boolean pay_status;
-    private int employee_id;
+    private int employeeId;
 
     /**
      * @return the id
@@ -60,16 +60,17 @@ public class Order {
     }
 
     /**
-     * @return the employee_id
+     * @return the employeeId
      */
-    public int getEmployee_id() {
-        return employee_id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
     /**
-     * @param employee_id the employee_id to set
+     * @param employeeId the employeeId to set
      */
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
+
 }

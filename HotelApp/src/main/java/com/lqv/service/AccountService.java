@@ -41,38 +41,30 @@ public class AccountService {
 
 //    ----------------------------------------------------
     public boolean checkAcc(String user, String pass) throws SQLException {
-        if (user == null) {
-            throw new SQLDataException("error");
+        Connection conn = JdbcUtils.getConn();
+        String sql = "SELECT * FROM acc_emp WHERE username = ? AND password = ?";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setString(1, user);
+        stm.setString(2, pass);
+
+        ResultSet rs = stm.executeQuery();
+//        System.out.println(rs);
+
+        String username = "";
+        String password = "";
+        while (rs.next()) {
+//            System.out.println(rs.getString("username"));
+//            System.out.println(rs.getString("password"));
+            username = rs.getString("username");
+            password = rs.getString("password");
         }
 
-        try {
-            String sql = "SELECT * FROM account WHERE username == ? And password == ?";
-            PreparedStatement stm = this.getConn().prepareStatement(sql);
-            stm.setString(1, user);
-            stm.setString(2, pass);
-            ResultSet rs = stm.executeQuery();
-            
-            if (rs != null)
-                return true;
-            else 
-                return false;
-
-//            while (rs.next()) {
-//                if (rs.getString("user_emp") == user) {
-//                    if (rs.getString("password") == pass) {
-//                        return true;
-//                    }                        
-//                    else return false;
-//                } else {
-//                    return false;
-//                }
-//            }
-//            return false;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+//        System.out.println(username);
+//        System.out.println(password);
+        
+        if (username != "" && password != "") {
+            return true;
+        }        
+        return false;
     }
-
 }

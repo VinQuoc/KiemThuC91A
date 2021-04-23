@@ -34,9 +34,11 @@ public class RoomService {
         }
 
         String sql = "SELECT * FROM room WHERE name like concat('%', ?, '%') ORDER BY id DESC";
+//        String sql = "SELECT * FROM room WHERE id=?";
 //        String sql = "SELECT * FROM room WHERE name == `N101`";
         PreparedStatement stm = this.getConn().prepareStatement(sql);
         stm.setString(1, kw);
+//        stm.setInt(1, 1);
 
         ResultSet rs = stm.executeQuery();
         List<Room> rooms = new ArrayList<>();
@@ -103,6 +105,29 @@ public class RoomService {
      */
     public void setConn(Connection conn) {
         this.conn = conn;
+    }
+
+    public Room getRoomByID(int roomid) throws SQLException {
+        if (roomid == 0) {
+            throw new SQLDataException("error");
+        }
+
+        Room r = new Room();
+        String sql = "SELECT * FROM room WHERE id=?";
+        PreparedStatement stm = this.getConn().prepareStatement(sql);
+        stm.setInt(1, roomid);
+
+        ResultSet rs = stm.executeQuery();
+
+        r.setId(rs.getInt("id"));
+        r.setName(rs.getString("name"));
+        r.setQuantity(rs.getInt("quantity"));
+        r.setPrice(rs.getBigDecimal("price"));
+        r.setImage(rs.getString("image"));
+        r.setCategoryId(rs.getInt("category_id"));
+
+        System.out.println("room " + r.getName());
+        return r;
     }
 
 }

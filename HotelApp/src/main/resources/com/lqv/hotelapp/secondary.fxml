@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lqv.hotelapp.SecondaryController">
    <children>
@@ -37,5 +36,6 @@
             <Button mnemonicParsing="false" text="Đăng xuất" />
          </children>
       </HBox>
+      <Button fx:id="secondaryButton" layoutX="483.0" layoutY="116.0" onAction="#switchToPrimary" text="Switch to Primary View" />
    </children>
 </Pane>

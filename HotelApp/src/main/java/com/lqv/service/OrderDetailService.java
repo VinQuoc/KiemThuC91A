@@ -38,22 +38,23 @@ public class OrderDetailService {
         this.conn = conn;
     }
     
-//    public boolean addOrderDetail(OrderDetail o) {
-//        try {
-//            String sql = "INSERT INTO order_detail(timeStart , timeEnd, room_id) VALUES(?, ?, ?)";
-//            PreparedStatement stm = this.conn.prepareStatement(sql);
-//            stm.setDate(1, o.getTimeStart());
-//            stm.setDate(2, o.getTimeEnd());
-//            stm.setInt(3, o.getRoom_id());
-//
-//            int rows = stm.executeUpdate();
-//
-//            return rows > 0;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        return false;
-//    }
+    public boolean addOrderDetail(OrderDetail o) {
+        try {
+            String sql = "INSERT INTO order_detail(id, timeStart , timeEnd, room_id) VALUES(?, ?, ?, ?)";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setInt(1, o.getId());
+            stm.setString(2, o.getTimeStart());
+            stm.setString(3, o.getTimeEnd());
+            stm.setInt(4, o.getRoom_id());
+
+            int rows = stm.executeUpdate();
+
+            return rows > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
     
 }
