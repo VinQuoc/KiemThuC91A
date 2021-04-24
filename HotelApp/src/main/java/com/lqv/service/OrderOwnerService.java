@@ -5,10 +5,15 @@
  */
 package com.lqv.service;
 
+import com.lqv.pojo.ListOrder;
 import com.lqv.pojo.OrderOwner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +42,7 @@ public class OrderOwnerService {
     public void setConn(Connection conn) {
         this.conn = conn;
     }
-    
+
     public boolean addOrderOwner(OrderOwner o) {
         try {
             String sql = "INSERT INTO order_owner(id, name , phone, IS_number) VALUES(?, ?, ?, ?)";
@@ -55,5 +60,44 @@ public class OrderOwnerService {
         }
 
         return false;
+    }
+
+    public List<ListOrder> getOrders(String kw) throws SQLException {
+        if (kw == null) {
+            throw new SQLDataException("error");
+        }
+
+        String sql =      "select order_owner.name, order_owner.phone, order_owner.IS_number, employee.name, order_sell.total_price, order_detail.timeStart, order_detail.timeEnd, room.name, room.quantity, category.name\n"
+                        + "from order_sell\n"
+                        + "inner join order_owner ON order_sell.id = order_owner.id\n"
+                        + "inner join order_detail ON order_sell.id = order_detail.id\n"
+                        + "inner join employee ON order_sell.employee_id = employee.id\n"
+                        + "inner join room ON order_detail.room_id = room.id\n"
+                        + "inner join category ON room.category_id = category.id\n"
+                        + "WHERE order_owner.name like concat('%', ? , '%')";
+
+        PreparedStatement stm = this.getConn().prepareStatement(sql);
+        stm.setString(1, kw);
+        ResultSet rs = stm.executeQuery();
+        List<ListOrder> owners = new ArrayList<>();
+
+        while (rs.next()) {
+            ListOrder o = new ListOrder();
+            o.setNameCus(rs.getString("order_owner.name"));
+            o.setNameCus(rs.getString("order_owner.name"));
+            o.setPhoneCus(rs.getString("order_owner.phone"));
+            o.setISNumberCus(rs.getString("order_owner.IS_number"));
+            o.setByEmp(rs.getString("employee.name"));
+            o.setPrice(rs.getBigDecimal("order_sell.total_price"));
+            o.setTimeStart(rs.getString("order_detail.timeStart"));
+            o.setTimeEnd(rs.getString("order_detail.timeEnd"));
+            o.setNameRoom(rs.getString("room.name"));
+            o.setQuantity(rs.getInt("room.quantity"));
+            o.setTypeRoom(rs.getString("category.name"));
+
+            owners.add(o);
+        }
+
+        return owners;
     }
 }

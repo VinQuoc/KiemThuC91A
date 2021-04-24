@@ -23,6 +23,7 @@ public class App extends Application {
 //        scene = new Scene(loadFXML("secondary"), 800, 600);
 //        scene = new Scene(loadFXML("infoCus"), 800, 600);
         scene = new Scene(loadFXML("login"), 800, 600);
+//        scene = new Scene(loadFXML("orderView"), 800, 600);
         stage.setScene(scene);
         stage.show();
     }
@@ -39,13 +40,13 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-    
+
     public static void setEmp(Employee e) throws IOException {
         emp.setId(e.getId());
         emp.setName(e.getName());
         emp.setRole(e.getRole());
     }
-    
+
     public static Employee getEmp() {
         return emp;
     }

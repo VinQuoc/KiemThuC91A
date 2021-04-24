@@ -59,7 +59,7 @@ public class InfoCusController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.txtName.setText(App.getEmp().getName());
+//        this.txtName.setText(App.getEmp().getName());
         System.out.println("Da thiet lap trang infoCus");
     }
 
