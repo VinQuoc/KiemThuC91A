@@ -54,15 +54,12 @@ public class InfoCusController implements Initializable {
     private Room room = new Room();
 
     private int oId;
-
-//    private OrderSell order = new OrderSell();
-//    private OrderOwner owner = new OrderOwner();
-//    private OrderDetail detail = new OrderDetail();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.txtName.setText(App.getEmp().getName());
         System.out.println("Da thiet lap trang infoCus");
     }
 
@@ -98,8 +95,7 @@ public class InfoCusController implements Initializable {
         OrderSell order = new OrderSell();
         order.setTotal_price(new BigDecimal(txtTien.getText()));
         order.setPay_status(true);
-        order.setEmployeeId(3);
-//        Chưa xử lý login để lấy id nhân viên
+        order.setEmployeeId(App.getEmp().getId());
         
         
         Connection conn;

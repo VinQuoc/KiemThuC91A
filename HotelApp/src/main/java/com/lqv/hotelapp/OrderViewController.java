@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
 public class OrderViewController implements Initializable {
     
     @FXML
-    private void switchToManagement() throws IOException {
+    private void switchToManagement() throws IOException {        
         App.setRoot("management");
     }
     

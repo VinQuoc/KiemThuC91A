@@ -16,34 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `acc_emp`
---
-
-DROP TABLE IF EXISTS `acc_emp`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `acc_emp` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `emp_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_employee_fk1_idx` (`emp_id`),
-  CONSTRAINT `id_employee_fk1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `acc_emp`
---
-
-LOCK TABLES `acc_emp` WRITE;
-/*!40000 ALTER TABLE `acc_emp` DISABLE KEYS */;
-INSERT INTO `acc_emp` VALUES (1,'quanly','123',1),(2,'nhanvien','123',2),(3,'nhanvien2','123',3);
-/*!40000 ALTER TABLE `acc_emp` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `category`
 --
 
@@ -80,6 +52,8 @@ CREATE TABLE `employee` (
   `phone` int DEFAULT NULL,
   `email` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -90,7 +64,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'Admin',NULL,NULL,'admin'),(2,'Minh Tien',NULL,NULL,'employee'),(3,'Quoc Vin',NULL,NULL,'employee');
+INSERT INTO `employee` VALUES (1,'Admin',NULL,NULL,'admin','quanly','123'),(2,'Minh Tien',NULL,NULL,'employee','nhanvien1','qwe'),(3,'Quoc Vin',NULL,NULL,'employee','nhanvien2','zxc');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,6 +93,7 @@ CREATE TABLE `order_detail` (
 
 LOCK TABLES `order_detail` WRITE;
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
+INSERT INTO `order_detail` VALUES (41,'2021-04-26','2021-04-26',6);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,6 +120,7 @@ CREATE TABLE `order_owner` (
 
 LOCK TABLES `order_owner` WRITE;
 /*!40000 ALTER TABLE `order_owner` DISABLE KEYS */;
+INSERT INTO `order_owner` VALUES (41,'Minh Tien đặt phòng','345345','1232312');
 /*!40000 ALTER TABLE `order_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +139,7 @@ CREATE TABLE `order_sell` (
   PRIMARY KEY (`id`),
   KEY `id_employee_fk2_idx` (`employee_id`),
   CONSTRAINT `id_employee_fk2` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +148,7 @@ CREATE TABLE `order_sell` (
 
 LOCK TABLES `order_sell` WRITE;
 /*!40000 ALTER TABLE `order_sell` DISABLE KEYS */;
+INSERT INTO `order_sell` VALUES (41,700000,1,2);
 /*!40000 ALTER TABLE `order_sell` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-23 22:35:41
+-- Dump completed on 2021-04-24 17:07:54

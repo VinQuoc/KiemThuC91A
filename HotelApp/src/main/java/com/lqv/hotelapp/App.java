@@ -1,5 +1,6 @@
 package com.lqv.hotelapp;
 
+import com.lqv.pojo.Employee;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Employee emp = new Employee();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -36,6 +38,16 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    public static void setEmp(Employee e) throws IOException {
+        emp.setId(e.getId());
+        emp.setName(e.getName());
+        emp.setRole(e.getRole());
+    }
+    
+    public static Employee getEmp() {
+        return emp;
     }
 
 }

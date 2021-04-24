@@ -245,7 +245,7 @@ public class SecondaryController implements Initializable {
         stage.setScene(new Scene(p));
         stage.showAndWait();
 
-        System.out.println(room);
+//        System.out.println(room);
     }
 
 }

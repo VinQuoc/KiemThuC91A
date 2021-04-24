@@ -6,6 +6,7 @@
 package com.lqv.service;
 
 import com.lqv.pojo.Account;
+import com.lqv.pojo.Employee;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +43,7 @@ public class AccountService {
 //    ----------------------------------------------------
     public boolean checkAcc(String user, String pass) throws SQLException {
         Connection conn = JdbcUtils.getConn();
-        String sql = "SELECT * FROM acc_emp WHERE username = ? AND password = ?";
+        String sql = "SELECT * FROM employee WHERE username = ? AND password = ?";
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, user);
         stm.setString(2, pass);
@@ -67,4 +68,23 @@ public class AccountService {
         }        
         return false;
     }
+    
+    public Employee getAcc(String user, String pass) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        String sql = "SELECT * FROM employee WHERE username = ? AND password = ?";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setString(1, user);
+        stm.setString(2, pass);
+
+        ResultSet rs = stm.executeQuery();
+        
+        Employee emp = new Employee();
+        while (rs.next()) {
+               emp.setId(rs.getInt("id"));
+               emp.setName(rs.getString("name"));
+               emp.setRole(rs.getString("role"));
+        }    
+        return emp;
+    }
+    
 }
