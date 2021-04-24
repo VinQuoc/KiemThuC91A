@@ -4,7 +4,6 @@ import com.lqv.pojo.Category;
 import com.lqv.pojo.Room;
 import com.lqv.service.CategoryService;
 import com.lqv.service.JdbcUtils;
-import com.lqv.service.OrderSellService;
 import com.lqv.service.RoomService;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -37,15 +36,30 @@ import javafx.stage.Stage;
 public class SecondaryController implements Initializable {
 
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+    private void switchToManagement() throws IOException {
+        App.setRoot("management");
     }
-
+    
     @FXML
-    private void switchToInfoCus() throws IOException {
-        App.setRoot("infoCus");
-
+    private void switchToRooms() throws IOException {
+        App.setRoot("secondary");
     }
+    
+    @FXML
+    private void switchToRule() throws IOException {
+        App.setRoot("rule");
+    }
+    
+    @FXML
+    private void switchToOrderView() throws IOException {
+        App.setRoot("orderView");
+    }
+    
+    @FXML
+    private void logOut() throws IOException {
+        App.setRoot("login");
+    }
+    
 
     @FXML
     private ComboBox<Category> cbCategories;

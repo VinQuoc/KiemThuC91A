@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lqv.hotelapp.SecondaryController">
    <children>
@@ -22,20 +23,19 @@
       <Button layoutX="205.0" layoutY="267.0" mnemonicParsing="false" text="Cập nhật" />
       <Label layoutX="60.0" layoutY="146.0" text="Số lượng giường" textAlignment="RIGHT" />
       <TextField fx:id="txtQuantity" layoutX="176.0" layoutY="142.0" prefHeight="26.0" prefWidth="122.0" />
-      <Label alignment="CENTER" layoutX="16.0" layoutY="12.0" prefHeight="54.0" prefWidth="190.0" text="Quản lý Phòng">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="16.0" prefHeight="55.0" prefWidth="196.0" text="Quản lý phòng">
          <font>
-            <!--<Font size="24.0" />-->
+            <Font size="24.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="317.0" layoutY="27.0" prefHeight="34.0" prefWidth="450.0">
+      <HBox alignment="CENTER" layoutX="287.0" layoutY="27.0" prefHeight="34.0" prefWidth="450.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#addRoom" text="Quản lý nhân viên" />
-            <Button mnemonicParsing="false" onAction="#addRoom" text="Quản lý phòng" />
-            <Button mnemonicParsing="false" onAction="#addRoom" text="Quy định" />
-            <Button mnemonicParsing="false" text="Cho thuê phòng" />
-            <Button mnemonicParsing="false" text="Đăng xuất" />
+            <Button mnemonicParsing="false" onAction="#switchToOrderView" text="Danh sách order" />
+            <Button mnemonicParsing="false" onAction="#switchToManagement" text="Quản lý nhân viên" />
+            <Button mnemonicParsing="false" onAction="#switchToRooms" text="Quản lý phòng" />
+            <Button mnemonicParsing="false" onAction="#switchToRule" text="Quy định" />
+            <Button mnemonicParsing="false" onAction="#logOut" text="Đăng xuất" />
          </children>
       </HBox>
-      <Button fx:id="secondaryButton" layoutX="483.0" layoutY="116.0" onAction="#switchToPrimary" text="Switch to Primary View" />
    </children>
 </Pane>

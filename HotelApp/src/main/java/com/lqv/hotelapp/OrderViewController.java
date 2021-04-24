@@ -16,8 +16,8 @@ import javafx.fxml.Initializable;
  *
  * @author DELL
  */
-public class RuleController implements Initializable {
-
+public class OrderViewController implements Initializable {
+    
     @FXML
     private void switchToManagement() throws IOException {
         App.setRoot("management");
@@ -49,6 +49,6 @@ public class RuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
+    }    
+    
 }
