@@ -22,7 +22,7 @@ public class App extends Application {
 //        scene = new Scene(loadFXML("primary"), 640, 480);
 //        scene = new Scene(loadFXML("secondary"), 800, 600);
 //        scene = new Scene(loadFXML("infoCus"), 800, 600);
-        scene = new Scene(loadFXML("login"), 800, 600);
+        scene = new Scene(loadFXML("login"), 900, 600);
 //        scene = new Scene(loadFXML("orderView"), 800, 600);
         stage.setScene(scene);
         stage.show();

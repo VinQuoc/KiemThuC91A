@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -22,33 +23,37 @@ public class RuleController implements Initializable {
     private void switchToManagement() throws IOException {
         App.setRoot("management");
     }
-    
+
     @FXML
     private void switchToRooms() throws IOException {
         App.setRoot("secondary");
     }
-    
+
     @FXML
     private void switchToRule() throws IOException {
         App.setRoot("rule");
     }
-    
+
     @FXML
     private void switchToOrderView() throws IOException {
         App.setRoot("orderView");
     }
-    
+
     @FXML
     private void logOut() throws IOException {
         App.setRoot("login");
     }
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Text textRole;
+    @FXML
+    private Text textNameEmp;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        this.textRole.setText(App.getEmp().getRole());
+        this.textNameEmp.setText(App.getEmp().getName());
     }
 
 }

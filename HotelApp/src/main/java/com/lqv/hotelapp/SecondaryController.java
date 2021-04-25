@@ -31,6 +31,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SecondaryController implements Initializable {
@@ -73,9 +74,18 @@ public class SecondaryController implements Initializable {
     private TextField txtPrice;
     @FXML
     private TextField txtQuantity;
+    
+    @FXML
+    private Text textRole;
+    @FXML
+    private Text textNameEmp;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        this.textRole.setText(App.getEmp().getRole());
+        this.textNameEmp.setText(App.getEmp().getName());
+        
         try {
             CategoryService s = new CategoryService();
             List<Category> cates = s.getCates("");

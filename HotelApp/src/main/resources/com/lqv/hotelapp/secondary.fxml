@@ -8,34 +8,65 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lqv.hotelapp.SecondaryController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lqv.hotelapp.SecondaryController">
    <children>
-      <TableView fx:id="tbRooms" layoutX="24.0" layoutY="370.0" maxHeight="240.0" prefHeight="240.0" prefWidth="743.0" />
-      <TextField fx:id="txtKeywords" layoutX="67.0" layoutY="331.0" prefHeight="26.0" prefWidth="246.0" promptText="Nhập tên phòng . . ." />
-      <ComboBox fx:id="cbCategories" layoutX="175.0" layoutY="219.0" prefWidth="150.0" />
-      <TextField fx:id="txtName" layoutX="176.0" layoutY="103.0" />
-      <TextField fx:id="txtPrice" layoutX="176.0" layoutY="181.0" prefHeight="26.0" prefWidth="149.0" />
-      <Label layoutX="60.0" layoutY="107.0" text="Tên phòng" />
-      <Label layoutX="58.0" layoutY="185.0" text="Gía" />
-      <Label layoutX="61.0" layoutY="223.0" text="Danh mục" />
-      <Button layoutX="89.0" layoutY="267.0" mnemonicParsing="false" onAction="#addRoom" text="Thêm sản phẩm" />
-      <Button layoutX="205.0" layoutY="267.0" mnemonicParsing="false" text="Cập nhật" />
-      <Label layoutX="60.0" layoutY="146.0" text="Số lượng giường" textAlignment="RIGHT" />
-      <TextField fx:id="txtQuantity" layoutX="176.0" layoutY="142.0" prefHeight="26.0" prefWidth="122.0" />
-      <Label alignment="CENTER" layoutX="24.0" layoutY="16.0" prefHeight="55.0" prefWidth="196.0" text="Quản lý phòng">
+      <TableView fx:id="tbRooms" layoutX="86.0" layoutY="288.0" maxHeight="280.0" prefHeight="280.0" prefWidth="750.0" />
+      <TextField fx:id="txtKeywords" layoutX="150.0" layoutY="233.0" prefHeight="26.0" prefWidth="246.0" promptText="Nhập tên phòng . . ." />
+      <ComboBox fx:id="cbCategories" layoutX="648.0" layoutY="148.0" prefWidth="150.0" />
+      <TextField fx:id="txtName" layoutX="434.0" layoutY="107.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="txtPrice" layoutX="649.0" layoutY="110.0" prefHeight="26.0" prefWidth="149.0" />
+      <Label layoutX="338.0" layoutY="111.0" text="Tên phòng" />
+      <Label layoutX="583.0" layoutY="114.0" text="Gía" />
+      <Label layoutX="586.0" layoutY="152.0" text="Danh mục" />
+      <Button layoutX="466.0" layoutY="190.0" mnemonicParsing="false" onAction="#addRoom" text="Thêm sản phẩm" />
+      <Button layoutX="582.0" layoutY="190.0" mnemonicParsing="false" text="Cập nhật" />
+      <Label layoutX="338.0" layoutY="150.0" text="Số lượng giường" textAlignment="RIGHT" />
+      <TextField fx:id="txtQuantity" layoutX="434.0" layoutY="146.0" prefHeight="26.0" prefWidth="64.0" />
+      <Label alignment="CENTER" layoutX="34.0" layoutY="34.0" prefHeight="55.0" prefWidth="196.0" text="Quản lý phòng">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="287.0" layoutY="27.0" prefHeight="34.0" prefWidth="450.0">
+      <HBox alignment="CENTER" layoutX="326.0" layoutY="34.0" prefHeight="55.0" prefWidth="534.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToOrderView" text="Danh sách order" />
-            <Button mnemonicParsing="false" onAction="#switchToManagement" text="Quản lý nhân viên" />
-            <Button mnemonicParsing="false" onAction="#switchToRooms" text="Quản lý phòng" />
-            <Button mnemonicParsing="false" onAction="#switchToRule" text="Quy định" />
-            <Button mnemonicParsing="false" onAction="#logOut" text="Đăng xuất" />
+            <Button mnemonicParsing="false" onAction="#switchToOrderView" text="Danh sách order" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#switchToManagement" text="Quản lý nhân viên" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#switchToRooms" text="Quản lý phòng" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#switchToRule" text="Quy định" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#logOut" text="Đăng xuất" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </HBox>
+      <Text fx:id="textNameEmp" layoutX="49.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameEmp" textAlignment="CENTER" wrappingWidth="166.8050537109375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="textRole" layoutX="53.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RoleEmp" textAlignment="CENTER" wrappingWidth="157.826171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

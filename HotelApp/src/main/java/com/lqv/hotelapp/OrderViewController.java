@@ -6,7 +6,6 @@
 package com.lqv.hotelapp;
 
 import com.lqv.pojo.ListOrder;
-import com.lqv.pojo.Room;
 import com.lqv.service.JdbcUtils;
 import com.lqv.service.OrderOwnerService;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -62,6 +62,11 @@ public class OrderViewController implements Initializable {
     @FXML
     private TextField txtKeywords;
 
+    @FXML
+    private Text textRole;
+    @FXML
+    private Text textNameEmp;
+
     /**
      * Initializes the controller class.
      */
@@ -73,6 +78,9 @@ public class OrderViewController implements Initializable {
         this.txtKeywords.textProperty().addListener((obj) -> {
             loadData(this.txtKeywords.getText());
         });
+
+        this.textRole.setText(App.getEmp().getRole());
+        this.textNameEmp.setText(App.getEmp().getName());
     }
 
     private void loadColumns() {
@@ -96,7 +104,7 @@ public class OrderViewController implements Initializable {
         TableColumn colRoom = new TableColumn("Phòng");
         colRoom.setPrefWidth(90);
         colRoom.setCellValueFactory(new PropertyValueFactory("nameRoom"));
-        
+
         TableColumn colTypeRoom = new TableColumn("Loại phòng");
         colTypeRoom.setPrefWidth(90);
         colTypeRoom.setCellValueFactory(new PropertyValueFactory("typeRoom"));
@@ -116,7 +124,7 @@ public class OrderViewController implements Initializable {
         TableColumn colPrice = new TableColumn("Thành tiền");
         colPrice.setPrefWidth(90);
         colPrice.setCellValueFactory(new PropertyValueFactory("price"));
-        
+
         this.tbOrders.getColumns().addAll(colNameCus, colPhone, colISNumber, colByEmp, colRoom, colTypeRoom, colQuantity, colTimeStart, colTimeEnd, colPrice);
 
     }

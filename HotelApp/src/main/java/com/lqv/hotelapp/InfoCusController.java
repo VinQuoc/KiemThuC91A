@@ -61,6 +61,7 @@ public class InfoCusController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 //        this.txtName.setText(App.getEmp().getName());
         System.out.println("Da thiet lap trang infoCus");
+//        System.out.println(App.getEmp().getName());
     }
 
     public int getDayStart() {

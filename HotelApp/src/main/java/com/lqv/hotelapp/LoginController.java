@@ -37,8 +37,6 @@ public class LoginController implements Initializable {
     private TextField txtUserName;
     @FXML
     private TextField txtPassword;
-    
-    private Employee emp;
 
     /**
      * Initializes the controller class.
@@ -47,7 +45,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public void login(ActionEvent evt) throws IOException {
         try {
             Connection conn = JdbcUtils.getConn();
@@ -56,7 +54,7 @@ public class LoginController implements Initializable {
             if (emp.checkAcc(txtUserName.getText(), txtPassword.getText())) {
 //                Utils.getAlertBox("Đăng nhập thành công", Alert.AlertType.INFORMATION).show();
                 emp.getEmp(txtUserName.getText(), txtPassword.getText(), e);
-//                System.out.println(e.getName());
+
                 App.setEmp(e);
                 App.setRoot("orderView");
             } else {
