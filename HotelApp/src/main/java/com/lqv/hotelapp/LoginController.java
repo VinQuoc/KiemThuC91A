@@ -6,8 +6,10 @@
 package com.lqv.hotelapp;
 
 import com.lqv.pojo.Employee;
+import com.lqv.pojo.SystemRule;
 import com.lqv.service.EmployeeService;
 import com.lqv.service.JdbcUtils;
+import com.lqv.service.SystemRuleService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -51,11 +53,18 @@ public class LoginController implements Initializable {
             Connection conn = JdbcUtils.getConn();
             EmployeeService emp = new EmployeeService(conn);
             Employee e = new Employee();
+            
+            SystemRuleService ruleS = new SystemRuleService(conn);
+            
             if (emp.checkAcc(txtUserName.getText(), txtPassword.getText())) {
 //                Utils.getAlertBox("Đăng nhập thành công", Alert.AlertType.INFORMATION).show();
                 emp.getEmp(txtUserName.getText(), txtPassword.getText(), e);
 
-                App.setEmp(e);
+                App.setEmp(e);                
+                
+                App.setSystemRules(ruleS.getSystemRules());
+                System.out.println(ruleS.getSystemRules().get(1).getRule());
+                
                 App.setRoot("orderView");
             } else {
                 Utils.getAlertBox("Đăng nhập thất bại", Alert.AlertType.WARNING).show();

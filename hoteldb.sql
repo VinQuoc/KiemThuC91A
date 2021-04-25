@@ -93,7 +93,7 @@ CREATE TABLE `order_detail` (
 
 LOCK TABLES `order_detail` WRITE;
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
-INSERT INTO `order_detail` VALUES (41,'2021-04-26','2021-04-26',6);
+INSERT INTO `order_detail` VALUES (41,'2021-04-26','2021-04-26',6),(42,'1/1/2000','2/2/2000',5),(43,'batdau','ketthuc',7);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `order_owner` (
 
 LOCK TABLES `order_owner` WRITE;
 /*!40000 ALTER TABLE `order_owner` DISABLE KEYS */;
-INSERT INTO `order_owner` VALUES (41,'Minh Tien đặt phòng','345345','1232312');
+INSERT INTO `order_owner` VALUES (41,'Minh Tien đặt phòng','345345','1232312'),(42,'ten42','phone42','isnumber42');
 /*!40000 ALTER TABLE `order_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,7 @@ CREATE TABLE `order_sell` (
   PRIMARY KEY (`id`),
   KEY `id_employee_fk2_idx` (`employee_id`),
   CONSTRAINT `id_employee_fk2` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `order_sell` (
 
 LOCK TABLES `order_sell` WRITE;
 /*!40000 ALTER TABLE `order_sell` DISABLE KEYS */;
-INSERT INTO `order_sell` VALUES (41,700000,1,2);
+INSERT INTO `order_sell` VALUES (41,700000,1,2),(42,3432423,1,1),(43,1231,1,3);
 /*!40000 ALTER TABLE `order_sell` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +169,7 @@ CREATE TABLE `room` (
   PRIMARY KEY (`id`),
   KEY `id_category_fk1_idx` (`category_id`),
   CONSTRAINT `id_category_fk1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (1,'N101',1,150000,'phong1.1.jpg',2),(2,'N102',1,120000,'phong1.2.jpg',2),(3,'N103',1,170000,'phong1.3.jpg',2),(4,'N104',1,100000,'phong1.4.jpg',2),(5,'N105',1,300000,'phongV1.1.jpg',1),(6,'N106',1,350000,'phongV1.2.jpg',1),(7,'N201',2,200000,'phong2.1.jpg',2),(8,'N202',2,230000,'phong2.2.jpg',2),(9,'N203',2,500000,'phongV2.jpg',1),(12,'A113',5,555555,NULL,1);
+INSERT INTO `room` VALUES (1,'N101',1,150000,'phong1.1.jpg',2),(2,'N102',1,120000,'phong1.2.jpg',2),(3,'N103',1,170000,'phong1.3.jpg',2),(4,'N104',1,100000,'phong1.4.jpg',2),(5,'N105',1,300000,'phongV1.1.jpg',1),(6,'N106',1,350000,'phongV1.2.jpg',1),(7,'N201',2,200000,'phong2.1.jpg',2),(8,'N202',2,230000,'phong2.2.jpg',2),(9,'N203',2,500000,'phongV2.jpg',1),(12,'AAAA',7,43534,'asd',1);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,13 +192,13 @@ DROP TABLE IF EXISTS `rule`;
 CREATE TABLE `rule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `rule` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL,
   `admin_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_employee3_fk1_idx` (`admin_id`),
   CONSTRAINT `id_employee3_fk1` FOREIGN KEY (`admin_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `rule` (
 
 LOCK TABLES `rule` WRITE;
 /*!40000 ALTER TABLE `rule` DISABLE KEYS */;
-INSERT INTO `rule` VALUES (1,'check_ISNUMBER','Xác thực thông tin người dùng thông qua CMND',0,1);
+INSERT INTO `rule` VALUES (1,'check_ISNUMBER','Xác thực thông tin người dùng thông qua CMND',0,1),(2,'minPriceRoom','Số tiền cho thuê nhỏ nhất khi cho thuê phòng: min(100000, vô cùng)',1,1),(3,'timeRent','ngày cho bắt đầu thuê phòng phải là ngày hiện tại trờ về sau, và ngày trả phòng phải là sau ngày thuê phòng',1,1);
 /*!40000 ALTER TABLE `rule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -220,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-24 17:07:54
+-- Dump completed on 2021-04-26  1:33:49

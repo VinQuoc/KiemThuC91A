@@ -5,6 +5,7 @@
  */
 package com.lqv.service;
 
+import com.lqv.hotelapp.App;
 import com.lqv.pojo.ListOrder;
 import com.lqv.pojo.OrderOwner;
 import java.sql.Connection;
@@ -44,6 +45,10 @@ public class OrderOwnerService {
     }
 
     public boolean addOrderOwner(OrderOwner o) {
+        boolean checkStatusRuleISNumBer = App.getListRule().get(0).isStatus();        
+        if (o.getIS_Number() == null && checkStatusRuleISNumBer) {
+            return false;
+        }
         try {
             String sql = "INSERT INTO order_owner(id, name , phone, IS_number) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);

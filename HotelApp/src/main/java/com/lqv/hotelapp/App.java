@@ -1,6 +1,7 @@
 package com.lqv.hotelapp;
 
 import com.lqv.pojo.Employee;
+import com.lqv.pojo.SystemRule;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JavaFX App
@@ -16,6 +19,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Employee emp = new Employee();
+    private static List<SystemRule> rules = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -49,6 +53,14 @@ public class App extends Application {
 
     public static Employee getEmp() {
         return emp;
+    }
+    
+    public static void setSystemRules(List<SystemRule> listRule) {
+        rules.addAll(listRule);
+    }
+    
+    public static List<SystemRule> getListRule() {
+        return rules;
     }
 
 }

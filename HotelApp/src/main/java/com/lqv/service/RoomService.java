@@ -5,7 +5,9 @@
  */
 package com.lqv.service;
 
+import com.lqv.hotelapp.App;
 import com.lqv.pojo.Room;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +35,10 @@ public class RoomService {
             throw new SQLDataException("error");
         }
 
-        String sql =    "SELECT  room.id, room.name, room.quantity, room.price, room.category_id, category.name\n" +
-                        "FROM room\n" +
-                        "inner join category ON category.id = room.category_id" +
-                        " WHERE room.name like concat('%', ?, '%') ORDER BY id DESC";
+        String sql = "SELECT  room.id, room.name, room.quantity, room.price, room.category_id, category.name\n"
+                + "FROM room\n"
+                + "inner join category ON category.id = room.category_id"
+                + " WHERE room.name like concat('%', ?, '%') ORDER BY id DESC";
         PreparedStatement stm = this.getConn().prepareStatement(sql);
         stm.setString(1, kw);
 
@@ -58,6 +60,11 @@ public class RoomService {
     }
 
     public boolean addRoom(Room p) {
+        BigDecimal so = new BigDecimal(99999);
+        boolean checkStatusRulePrice = App.getListRule().get(1).isStatus();        
+        if (p.getQuantity() < 0 || (p.getPrice().compareTo(so) == -1 && checkStatusRulePrice)) {
+            return false;
+        }    
         try {
             String sql = "INSERT INTO room(name, quantity, price, category_id) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);
@@ -77,10 +84,16 @@ public class RoomService {
     }
 
     public boolean updateRoom(Room r, int roomId) {
+        BigDecimal so = new BigDecimal(99999);
+        boolean checkStatusRulePrice = App.getListRule().get(1).isStatus();        
+        if (r.getQuantity() < 0 || (r.getPrice().compareTo(so) == -1 && checkStatusRulePrice)) {
+            return false;
+        }        
+        
         try {
-            String sql =    "UPDATE room\n" +
-                            "SET name=?, quantity=?, price=?, category_id=?\n"  +
-                            "WHERE id=?";
+            String sql = "UPDATE room\n"
+                    + "SET name=?, quantity=?, price=?, category_id=?\n"
+                    + "WHERE id=?";
             PreparedStatement stm = this.conn.prepareStatement(sql);
             stm.setString(1, r.getName());
             stm.setInt(2, r.getQuantity());

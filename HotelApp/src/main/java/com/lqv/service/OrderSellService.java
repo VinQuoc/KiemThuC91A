@@ -5,7 +5,9 @@
  */
 package com.lqv.service;
 
+import com.lqv.hotelapp.App;
 import com.lqv.pojo.OrderSell;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +43,11 @@ public class OrderSellService {
     }
 
     public boolean addOrder(OrderSell o) {
+        BigDecimal so = new BigDecimal(0);
+        boolean checkStatusRuleTimeRent = App.getListRule().get(2).isStatus();  
+        if (o.getTotal_price().compareTo(so) == -1 && checkStatusRuleTimeRent) {
+            return false;
+        }
         try {
             String sql = "INSERT INTO order_sell(total_price, pay_status, employee_id) VALUES(?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);

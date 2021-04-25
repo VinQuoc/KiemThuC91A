@@ -5,6 +5,7 @@
  */
 package com.lqv.service;
 
+import com.lqv.hotelapp.App;
 import com.lqv.pojo.OrderDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,7 +39,7 @@ public class OrderDetailService {
         this.conn = conn;
     }
     
-    public boolean addOrderDetail(OrderDetail o) {
+    public boolean addOrderDetail(OrderDetail o) {         
         try {
             String sql = "INSERT INTO order_detail(id, timeStart , timeEnd, room_id) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);
