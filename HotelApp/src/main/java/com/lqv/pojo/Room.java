@@ -19,6 +19,7 @@ public class Room {
     private BigDecimal price;
     private String image;
     private int categoryId;
+    private String type;
 
     /**
      * @return the id
@@ -102,5 +103,19 @@ public class Room {
      */
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 }

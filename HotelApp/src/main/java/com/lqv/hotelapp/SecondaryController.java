@@ -35,7 +35,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SecondaryController implements Initializable {
-
+    
     @FXML
     private void switchToManagement() throws IOException {
         App.setRoot("management");
@@ -61,7 +61,6 @@ public class SecondaryController implements Initializable {
         App.setRoot("login");
     }
     
-
     @FXML
     private ComboBox<Category> cbCategories;
     @FXML
@@ -79,7 +78,9 @@ public class SecondaryController implements Initializable {
     private Text textRole;
     @FXML
     private Text textNameEmp;
-
+    
+    private int roomId;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -89,41 +90,45 @@ public class SecondaryController implements Initializable {
         try {
             CategoryService s = new CategoryService();
             List<Category> cates = s.getCates("");
-
+            
             this.cbCategories.setItems(FXCollections.observableList(cates));
         } catch (SQLException ex) {
             Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         loadColumns();
         loadData("");
-
+        
         this.txtKeywords.textProperty().addListener((obj) -> {
             loadData(this.txtKeywords.getText());
         });
-
+        
         this.tbRooms.setRowFactory(obj -> {
             TableRow row = new TableRow();
-
+            
             row.setOnMouseClicked(evt -> {
                 try {
                     Room r = this.tbRooms.getSelectionModel().getSelectedItem();
                     txtName.setText(r.getName());
                     txtPrice.setText(r.getPrice().toString());
-
+                    
+                    String s = String.valueOf(r.getQuantity());
+                    txtQuantity.setText(s);
+                    
                     Category c = new CategoryService().getCateById(r.getCategoryId());
-
                     this.cbCategories.getSelectionModel().select(c);
+                    
+                    roomId = r.getId();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-
+            
             return row;
         });
     }
-
+    
     public void addRoom() {
         Room r = new Room();
         r.setName(txtName.getText());
@@ -131,13 +136,40 @@ public class SecondaryController implements Initializable {
         r.setQuantity(Integer.parseInt(txtQuantity.getText()));
         Category c = this.cbCategories.getSelectionModel().getSelectedItem();
         r.setCategoryId(c.getId());
-
+        
         Connection conn;
         try {
             conn = JdbcUtils.getConn();
-
+            
             RoomService s = new RoomService(conn);
             if (s.addRoom(r) == true) {
+                Utils.getAlertBox("SUCCESSFUL", Alert.AlertType.INFORMATION).show();
+                loadData("");
+            } else {
+                Utils.getAlertBox("FAILED", Alert.AlertType.WARNING).show();
+            }
+            
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void updateRoom() {
+        Room r = new Room();
+        r.setName(txtName.getText());
+        r.setPrice(new BigDecimal(txtPrice.getText()));
+        r.setQuantity(Integer.parseInt(txtQuantity.getText()));
+        Category c = this.cbCategories.getSelectionModel().getSelectedItem();
+        r.setCategoryId(c.getId());
+        
+        Connection conn;
+        try {
+            conn = JdbcUtils.getConn();
+            
+            RoomService s = new RoomService(conn);
+            if (s.updateRoom(r, roomId) == true) {
                 Utils.getAlertBox("SUCCESSFUL", Alert.AlertType.INFORMATION).show();
                 loadData("");
             } else {
@@ -148,21 +180,25 @@ public class SecondaryController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     private void loadColumns() {
         TableColumn colId = new TableColumn("Mã phòng");
         colId.setCellValueFactory(new PropertyValueFactory("id"));
-
+        
         TableColumn colName = new TableColumn("Tên phòng");
         colName.setPrefWidth(90);
         colName.setCellValueFactory(new PropertyValueFactory("name"));
-
+        
+        TableColumn colTypeRoom = new TableColumn("Loại phòng");
+        colTypeRoom.setPrefWidth(90);
+        colTypeRoom.setCellValueFactory(new PropertyValueFactory("type"));
+        
         TableColumn colQuantity = new TableColumn("Số lượng giường");
         colQuantity.setPrefWidth(120);
         colQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
-
+        
         TableColumn colPrice = new TableColumn("Gía thuê phòng");
         colPrice.setPrefWidth(100);
         colPrice.setCellValueFactory(new PropertyValueFactory("price"));
@@ -183,7 +219,7 @@ public class SecondaryController implements Initializable {
         TableColumn colAction = new TableColumn();
         colAction.setCellFactory((obj) -> {
             Button btn = new Button("Xóa");
-
+            
             btn.setOnAction(evt -> {
                 Utils.getAlertBox("Bạn chắc chắn xóa không?", Alert.AlertType.CONFIRMATION)
                         .showAndWait().ifPresent(bt -> {
@@ -191,7 +227,7 @@ public class SecondaryController implements Initializable {
                                 try {
                                     TableCell cell = (TableCell) ((Button) evt.getSource()).getParent();
                                     Room p = (Room) cell.getTableRow().getItem();
-
+                                    
                                     try ( Connection conn = JdbcUtils.getConn()) {
                                         RoomService s = new RoomService(conn);
                                         if (s.deleteProduct(p.getId()) == true) {
@@ -201,22 +237,22 @@ public class SecondaryController implements Initializable {
                                             Utils.getAlertBox("FAILED", Alert.AlertType.ERROR).show();
                                         }
                                     }
-
+                                    
                                 } catch (SQLException ex) {
                                     Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
                         });
             });
-
+            
             TableCell cell = new TableCell();
             cell.setGraphic(btn);
             return cell;
         });
-
-        this.tbRooms.getColumns().addAll(colId, colName, colQuantity, colPrice, colAction, colRent);
+        
+        this.tbRooms.getColumns().addAll(colId, colName, colTypeRoom, colQuantity, colPrice, colAction, colRent);
     }
-
+    
     private void loadData(String kw) {
         try {
             Connection conn = JdbcUtils.getConn();
@@ -228,13 +264,13 @@ public class SecondaryController implements Initializable {
             Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void handleChoose(ActionEvent evt) {
         Room r = new Room();
         TableCell cell = (TableCell) ((Button) evt.getSource()).getParent();
         Room room = (Room) cell.getTableRow().getItem();
-
+        
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getResource("infoCus.fxml"));
         try {
@@ -249,7 +285,7 @@ public class SecondaryController implements Initializable {
 
 //      Lấy thông tin object room
         display.getRoom(room);
-
+        
         Parent p = Loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
@@ -257,5 +293,5 @@ public class SecondaryController implements Initializable {
 
 //        System.out.println(room);
     }
-
+    
 }

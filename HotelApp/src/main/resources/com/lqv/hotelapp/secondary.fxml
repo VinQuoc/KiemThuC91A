@@ -20,8 +20,8 @@
       <Label layoutX="338.0" layoutY="111.0" text="Tên phòng" />
       <Label layoutX="583.0" layoutY="114.0" text="Gía" />
       <Label layoutX="586.0" layoutY="152.0" text="Danh mục" />
-      <Button layoutX="466.0" layoutY="190.0" mnemonicParsing="false" onAction="#addRoom" text="Thêm sản phẩm" />
-      <Button layoutX="582.0" layoutY="190.0" mnemonicParsing="false" text="Cập nhật" />
+      <Button layoutX="466.0" layoutY="190.0" mnemonicParsing="false" onAction="#addRoom" text="Thêm phòng" />
+      <Button layoutX="766.0" layoutY="190.0" mnemonicParsing="false" onAction="#updateRoom" text="Cập nhật" />
       <Label layoutX="338.0" layoutY="150.0" text="Số lượng giường" textAlignment="RIGHT" />
       <TextField fx:id="txtQuantity" layoutX="434.0" layoutY="146.0" prefHeight="26.0" prefWidth="64.0" />
       <Label alignment="CENTER" layoutX="34.0" layoutY="34.0" prefHeight="55.0" prefWidth="196.0" text="Quản lý phòng">
@@ -68,5 +68,6 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <Label layoutX="613.0" layoutY="194.0" text="Chọn phòng cần cập nhập" />
    </children>
 </Pane>
