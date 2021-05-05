@@ -148,7 +148,7 @@ CREATE TABLE `order_sell` (
 
 LOCK TABLES `order_sell` WRITE;
 /*!40000 ALTER TABLE `order_sell` DISABLE KEYS */;
-INSERT INTO `order_sell` VALUES (41,700000,1,2),(42,3432423,1,1),(43,1231,1,3);
+INSERT INTO `order_sell` VALUES (41,700000,1,2),(42,3432423,1,1),(43,1231,1,3),(54,47,0,1),(55,41,0,1),(56,45,0,1),(57,555555,0,1),(58,40000,0,2);
 /*!40000 ALTER TABLE `order_sell` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +178,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (1,'N101',1,150000,'phong1.1.jpg',2),(2,'N102',1,120000,'phong1.2.jpg',2),(3,'N103',1,170000,'phong1.3.jpg',2),(4,'N104',1,100000,'phong1.4.jpg',2),(5,'N105',1,300000,'phongV1.1.jpg',1),(6,'N106',1,350000,'phongV1.2.jpg',1),(7,'N201',2,200000,'phong2.1.jpg',2),(8,'N202',2,230000,'phong2.2.jpg',2),(9,'N203',2,500000,'phongV2.jpg',1),(12,'AAAA',7,43534,'asd',1);
+INSERT INTO `room` VALUES (1,'N101',1,150000,'phong1.1.jpg',2),(2,'N102',1,120000,'phong1.2.jpg',2),(3,'N103',1,170000,'phong1.3.jpg',2),(4,'N104',1,100000,'phong1.4.jpg',2),(5,'N105',1,300000,'phongV1.1.jpg',1),(6,'N106',1,350000,'phongV1.2.jpg',1),(7,'N201',2,200000,'phong2.1.jpg',2),(8,'N202',2,230000,'phong2.2.jpg',2),(9,'N203',2,500000,'phongV2.jpg',1),(12,'AAAA',7,43534,'asd',1),(20,'A222',998888,2,NULL,1),(21,'ABC',5,99999,NULL,2),(25,'CCCC',3,99119,NULL,1),(28,'A222',998888,2,NULL,1),(29,'ABC',5,99999,NULL,2),(30,'XXX',3,31231,NULL,1);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-26  1:33:49
+-- Dump completed on 2021-05-05  8:07:36
