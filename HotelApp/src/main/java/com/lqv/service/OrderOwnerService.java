@@ -45,8 +45,8 @@ public class OrderOwnerService {
     }
 
     public boolean addOrderOwner(OrderOwner o) {
-        boolean checkStatusRuleISNumBer = App.getListRule().get(0).isStatus();        
-        if (o.getIS_Number() == null && checkStatusRuleISNumBer) {
+        boolean checkStatusRuleISNumBer = App.getListRule().get(0).isStatus();
+        if (o.getIS_Number().length() < 8 && checkStatusRuleISNumBer) {
             return false;
         }
         try {
@@ -72,14 +72,14 @@ public class OrderOwnerService {
             throw new SQLDataException("error");
         }
 
-        String sql =      "select order_owner.name, order_owner.phone, order_owner.IS_number, employee.name, order_sell.total_price, order_detail.timeStart, order_detail.timeEnd, room.name, room.quantity, category.name\n"
-                        + "from order_sell\n"
-                        + "inner join order_owner ON order_sell.id = order_owner.id\n"
-                        + "inner join order_detail ON order_sell.id = order_detail.id\n"
-                        + "inner join employee ON order_sell.employee_id = employee.id\n"
-                        + "inner join room ON order_detail.room_id = room.id\n"
-                        + "inner join category ON room.category_id = category.id\n"
-                        + "WHERE order_owner.name like concat('%', ? , '%')";
+        String sql = "select order_owner.name, order_owner.phone, order_owner.IS_number, employee.name, order_sell.total_price, order_detail.timeStart, order_detail.timeEnd, room.name, room.quantity, category.name\n"
+                + "from order_sell\n"
+                + "inner join order_owner ON order_sell.id = order_owner.id\n"
+                + "inner join order_detail ON order_sell.id = order_detail.id\n"
+                + "inner join employee ON order_sell.employee_id = employee.id\n"
+                + "inner join room ON order_detail.room_id = room.id\n"
+                + "inner join category ON room.category_id = category.id\n"
+                + "WHERE order_owner.name like concat('%', ? , '%')";
 
         PreparedStatement stm = this.getConn().prepareStatement(sql);
         stm.setString(1, kw);

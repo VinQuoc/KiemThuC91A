@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -66,12 +67,24 @@ public class OrderViewController implements Initializable {
     private Text textRole;
     @FXML
     private Text textNameEmp;
+    
+    @FXML
+    private Button switchToManagement;
+    
+    @FXML
+    private Button switchToRule;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        if (App.getEmp().getId() != 1) {
+            this.switchToManagement.setVisible(false);
+            this.switchToRule.setVisible(false);
+        }
+        
         loadColumns();
         loadData("");
 

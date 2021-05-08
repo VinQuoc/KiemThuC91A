@@ -79,6 +79,12 @@ public class SecondaryController implements Initializable {
     @FXML
     private Text textNameEmp;
     
+    @FXML
+    private Button switchToManagement;
+    
+    @FXML
+    private Button switchToRule;
+    
     private int roomId;
     
     @Override
@@ -86,6 +92,11 @@ public class SecondaryController implements Initializable {
         
         this.textRole.setText(App.getEmp().getRole());
         this.textNameEmp.setText(App.getEmp().getName());
+        
+        if (App.getEmp().getId() != 1) {
+            this.switchToManagement.setVisible(false);
+            this.switchToRule.setVisible(false);
+        }
         
         try {
             CategoryService s = new CategoryService();

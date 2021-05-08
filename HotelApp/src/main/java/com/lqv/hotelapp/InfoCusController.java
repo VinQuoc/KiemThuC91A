@@ -122,6 +122,9 @@ public class InfoCusController implements Initializable {
                 owner.setName(this.txtName.getText());
                 owner.setPhone(this.txtDT.getText());
                 owner.setIS_Number(this.txtCMND.getText());
+                
+                System.out.println("kiem tra gia tri: " + owner.getIS_Number());
+                System.out.println("kiem tra: " + owner.getIS_Number().length());
 
                 if (detailS.addOrderDetail(detail) == true && ownerS.addOrderOwner(owner) == true) {
                     Utils.getAlertBox("SUCCESSFUL order", Alert.AlertType.INFORMATION).show();

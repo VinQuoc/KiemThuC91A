@@ -31,9 +31,19 @@
             <Font size="14.0" />
          </font>
       </RadioButton>
-      <HBox alignment="CENTER" layoutX="325.0" layoutY="32.0" prefHeight="55.0" prefWidth="534.0">
+      <Text fx:id="textNameEmp" layoutX="60.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameEmp" textAlignment="CENTER" wrappingWidth="166.8050537109375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="textRole" layoutX="64.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RoleEmp" textAlignment="CENTER" wrappingWidth="157.826171875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <HBox alignment="CENTER" layoutX="289.0" layoutY="32.0" prefHeight="55.0" prefWidth="571.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToOrderView" text="Danh sách order" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#switchToOrderView" text="Danh sách đặt phòng" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -60,15 +70,5 @@
             </Button>
          </children>
       </HBox>
-      <Text fx:id="textNameEmp" layoutX="60.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameEmp" textAlignment="CENTER" wrappingWidth="166.8050537109375">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="textRole" layoutX="64.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RoleEmp" textAlignment="CENTER" wrappingWidth="157.826171875">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
    </children>
 </Pane>
