@@ -75,7 +75,7 @@ public class EmployeeService {
 
 //        System.out.println(username);
 //        System.out.println(password);
-        if (username != "" && password != "") {
+        if (username.equals(user) && password.equals(pass)) {
             return true;
         }
         return false;

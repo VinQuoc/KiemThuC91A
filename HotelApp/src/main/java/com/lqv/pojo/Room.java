@@ -20,6 +20,8 @@ public class Room {
     private String image;
     private int categoryId;
     private String type;
+    private boolean status;
+    
 
     /**
      * @return the id
@@ -117,5 +119,19 @@ public class Room {
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * @return the status
+     */
+    public boolean isStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

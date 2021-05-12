@@ -59,9 +59,7 @@ public class InfoCusController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        this.txtName.setText(App.getEmp().getName());
         System.out.println("Da thiet lap trang infoCus");
-//        System.out.println(App.getEmp().getName());
     }
 
     public int getDayStart() {
@@ -106,6 +104,7 @@ public class InfoCusController implements Initializable {
             OrderSellService orderS = new OrderSellService(conn);
             OrderDetailService detailS = new OrderDetailService(conn);
             OrderOwnerService ownerS = new OrderOwnerService(conn);
+            
 
             if (orderS.addOrder(order) == true) {
 
@@ -113,7 +112,7 @@ public class InfoCusController implements Initializable {
                 detail.setId(orderS.getOrderByIDLast());
                 LocalDate dayEnd = this.dtEnd.getValue();
                 detail.setTimeEnd(dayEnd.toString());
-                LocalDate dayStart = this.dtEnd.getValue();
+                LocalDate dayStart = this.dtStart.getValue();
                 detail.setTimeStart(dayStart.toString());
                 detail.setRoom_id(room.getId());
 
@@ -123,8 +122,9 @@ public class InfoCusController implements Initializable {
                 owner.setPhone(this.txtDT.getText());
                 owner.setIS_Number(this.txtCMND.getText());
                 
-                System.out.println("kiem tra gia tri: " + owner.getIS_Number());
-                System.out.println("kiem tra: " + owner.getIS_Number().length());
+//                System.out.println("kiem tra gia tri: " + owner.getIS_Number());
+//                System.out.println("kiem tra: " + owner.getIS_Number().length());
+
 
                 if (detailS.addOrderDetail(detail) == true && ownerS.addOrderOwner(owner) == true) {
                     Utils.getAlertBox("SUCCESSFUL order", Alert.AlertType.INFORMATION).show();

@@ -6,7 +6,6 @@
 package com.lqv.hotelapp;
 
 import com.lqv.pojo.Employee;
-import com.lqv.pojo.SystemRule;
 import com.lqv.service.EmployeeService;
 import com.lqv.service.JdbcUtils;
 import com.lqv.service.SystemRuleService;

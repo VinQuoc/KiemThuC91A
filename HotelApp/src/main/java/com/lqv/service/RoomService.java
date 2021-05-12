@@ -60,11 +60,14 @@ public class RoomService {
     }
 
     public boolean addRoom(Room p) {
-        BigDecimal so = new BigDecimal(99999);
+        BigDecimal so = new BigDecimal(100000);
         boolean checkStatusRulePrice = App.getListRule().get(1).isStatus();        
         if (p.getQuantity() < 0 || (p.getPrice().compareTo(so) == -1 && checkStatusRulePrice)) {
             return false;
-        }    
+        }
+        if (p.getName().length() < 0 ) {
+            return false;
+        }
         try {
             String sql = "INSERT INTO room(name, quantity, price, category_id) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);

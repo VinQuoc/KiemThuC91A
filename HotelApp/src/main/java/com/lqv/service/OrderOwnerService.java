@@ -7,6 +7,7 @@ package com.lqv.service;
 
 import com.lqv.hotelapp.App;
 import com.lqv.pojo.ListOrder;
+import com.lqv.pojo.OrderDetail;
 import com.lqv.pojo.OrderOwner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,6 +48,12 @@ public class OrderOwnerService {
     public boolean addOrderOwner(OrderOwner o) {
         boolean checkStatusRuleISNumBer = App.getListRule().get(0).isStatus();
         if (o.getIS_Number().length() < 8 && checkStatusRuleISNumBer) {
+            return false;
+        }
+        if (o.getPhone().length() < 9) {
+            return false;
+        }
+        if (o.getName().length() == 0) {
             return false;
         }
         try {
@@ -105,4 +112,6 @@ public class OrderOwnerService {
 
         return owners;
     }
+
+
 }
