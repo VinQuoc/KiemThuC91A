@@ -19,9 +19,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -39,6 +39,10 @@ public class LoginController implements Initializable {
     private TextField txtUserName;
     @FXML
     private PasswordField txtPassword;
+    @FXML
+    private Text txtError;
+
+    public String error;
 
     /**
      * Initializes the controller class.
@@ -53,21 +57,23 @@ public class LoginController implements Initializable {
             Connection conn = JdbcUtils.getConn();
             EmployeeService emp = new EmployeeService(conn);
             Employee e = new Employee();
-            
-            SystemRuleService ruleS = new SystemRuleService(conn);
-            
-            if (emp.checkAcc(txtUserName.getText(), txtPassword.getText())) {
-                emp.getEmp(txtUserName.getText(), txtPassword.getText(), e);
+            SystemRuleService ruleS = new SystemRuleService(conn);           
 
-                App.setEmp(e);                
-                
+//            Đăng nhập thành công thì chuyển trang
+            if (emp.checkAcc(txtUserName.getText(), txtPassword.getText(), e)) {
+                emp.getEmp(txtUserName.getText(), txtPassword.getText(), e);
+                App.setEmp(e);
                 App.setSystemRules(ruleS.getSystemRules());
-                
                 App.setRoot("orderView");
             } else {
-                Utils.getAlertBox("Đăng nhập thất bại", Alert.AlertType.WARNING).show();
+//                Utils.getAlertBox("Đăng nhập thất bại", Alert.AlertType.WARNING).show();
+                this.txtError.setText(e.getError());
+                this.txtError.setVisible(true);
+                System.out.println("bao loi: " + e.getError());
+                System.out.println("username: " + e.getUsername());
+                System.out.println("password: " + e.getPassword());
+                e.setError("");
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

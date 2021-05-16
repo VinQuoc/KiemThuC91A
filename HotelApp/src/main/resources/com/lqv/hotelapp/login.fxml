@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lqv.hotelapp.LoginController">
    <children>
@@ -19,21 +20,32 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="568.0" layoutY="388.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="200.0" text="Sign In">
+      <Button layoutX="568.0" layoutY="388.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="200.0" text="Sign In">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <TextField fx:id="txtUserName" layoutX="652.0" layoutY="250.0" />
-      <Label alignment="CENTER" layoutX="500.0" layoutY="68.0" prefHeight="55.0" prefWidth="337.0" text="Phần mềm quản lý khách sạn">
+      <TextField fx:id="txtUserName" layoutX="651.0" layoutY="243.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label alignment="CENTER" layoutX="515.0" layoutY="68.0" prefHeight="55.0" prefWidth="370.0" text="Phần mềm quản lý khách sạn">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="612.0" layoutY="149.0" prefHeight="27.0" prefWidth="150.0" text="Đăng Nhập">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="593.0" layoutY="175.0" prefHeight="27.0" prefWidth="150.0" text="Đăng nhập">
+      <PasswordField fx:id="txtPassword" layoutX="651.0" layoutY="301.0" prefHeight="40.0" prefWidth="200.0">
          <font>
             <Font size="18.0" />
+         </font></PasswordField>
+      <Text fx:id="txtError" layoutX="568.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="error" visible="false" wrappingWidth="217.60000000000014">
+         <font>
+            <Font size="16.0" />
          </font>
-      </Label>
-      <PasswordField fx:id="txtPassword" layoutX="652.0" layoutY="308.0" />
+      </Text>
    </children>
 </AnchorPane>

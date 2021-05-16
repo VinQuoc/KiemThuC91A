@@ -17,6 +17,7 @@ public class Employee {
     private String role;
     private String username;
     private String password;
+    private String error;
 
     /**
      * @return the id
@@ -114,5 +115,19 @@ public class Employee {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the error
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(String error) {
+        this.error = error;
     }
 }

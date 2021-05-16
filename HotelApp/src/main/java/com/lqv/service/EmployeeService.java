@@ -5,10 +5,7 @@
  */
 package com.lqv.service;
 
-import com.lqv.hotelapp.App;
 import com.lqv.pojo.Employee;
-import com.lqv.pojo.Room;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,11 +55,10 @@ public class EmployeeService {
             e.setRole(rs.getString("role"));
             break;
         }
-
         return e;
     }
 
-    public boolean checkAcc(String user, String pass) throws SQLException {
+    public boolean checkAcc(String user, String pass, Employee e) throws SQLException {
         Connection conn = JdbcUtils.getConn();
         String sql = "SELECT * FROM employee WHERE username = ? AND password = ?";
         PreparedStatement stm = conn.prepareStatement(sql);
@@ -71,15 +67,31 @@ public class EmployeeService {
 
         ResultSet rs = stm.executeQuery();
 
-        String username = "";
-        String password = "";
+        String username = " ";
+        String password = " ";
         while (rs.next()) {
             username = rs.getString("username");
             password = rs.getString("password");
         }
+
+//        xác định các lỗi đầu vào
+        if ((!password.equals(pass) || !username.equals(user)) && pass.length() > 1) {
+            e.setError("Tài khoản hoặc mật khẩu sai");
+            return false;
+        }
+        if (pass.length() < 1 && user.length() > 1) {
+            e.setError("Bạn chưa nhập mật khẩu");
+            return false;
+        }
+        if (user.length() < 1) {
+            e.setError("Bạn chưa nhập tên đăng nhập");
+            return false;
+        }
+
         if (username.equals(user) && password.equals(pass)) {
             return true;
         }
+        e.setError("Đăng nhập thất bại");
         return false;
     }
 
@@ -97,7 +109,6 @@ public class EmployeeService {
             emp.setName(rs.getString("name"));
             emp.setRole(rs.getString("role"));
         }
-
     }
 
     public boolean addEmp(Employee e) {
@@ -115,12 +126,10 @@ public class EmployeeService {
             stm.setString(3, e.getEmail());
 
             int rows = stm.executeUpdate();
-
             return rows > 0;
         } catch (SQLException ex) {
             Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return false;
     }
 
@@ -146,7 +155,6 @@ public class EmployeeService {
         } catch (SQLException ex) {
             Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return false;
     }
 
@@ -181,12 +189,10 @@ public class EmployeeService {
             stm.setInt(1, empId);
 
             int rows = stm.executeUpdate();
-
             return rows > 0;
         } catch (SQLException ex) {
             Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return false;
     }
 
@@ -194,7 +200,6 @@ public class EmployeeService {
         if (kw == null) {
             throw new SQLDataException("error");
         }
-
         String sql = "SELECT  *\n"
                 + "FROM employee\n"
                 + " WHERE employee.name like concat('%', ?, '%') ORDER BY id DESC";
@@ -214,8 +219,6 @@ public class EmployeeService {
 
             emps.add(e);
         }
-
         return emps;
     }
-
 }
