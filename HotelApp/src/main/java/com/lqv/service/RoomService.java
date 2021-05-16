@@ -163,7 +163,6 @@ public class RoomService {
         r.setImage(rs.getString("image"));
         r.setCategoryId(rs.getInt("category_id"));
 
-        System.out.println("room " + r.getName());
         return r;
     }
 

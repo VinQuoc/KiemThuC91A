@@ -53,7 +53,6 @@ public class InfoCusController implements Initializable {
 
     private Room room = new Room();
 
-    private int oId;
     /**
      * Initializes the controller class.
      */

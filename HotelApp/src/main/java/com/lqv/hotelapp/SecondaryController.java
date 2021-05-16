@@ -90,6 +90,7 @@ public class SecondaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+//        Hiển thị vai trò của người dùng hiện thời
         this.textRole.setText(App.getEmp().getRole());
         this.textNameEmp.setText(App.getEmp().getName());
         
@@ -107,13 +108,16 @@ public class SecondaryController implements Initializable {
             Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+//        Lấy dữ liệu khi tải scene
         loadColumns();
         loadData("");
         
+//        Cập nhập TableView khi gõ từ khóa tên phòng
         this.txtKeywords.textProperty().addListener((obj) -> {
             loadData(this.txtKeywords.getText());
         });
         
+//        Lấy giá trị Object room khi click chọn
         this.tbRooms.setRowFactory(obj -> {
             TableRow row = new TableRow();
             
@@ -301,8 +305,6 @@ public class SecondaryController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.showAndWait();
-
-//        System.out.println(room);
     }
     
 }

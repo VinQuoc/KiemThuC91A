@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
@@ -37,7 +38,7 @@ public class LoginController implements Initializable {
     @FXML
     private TextField txtUserName;
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
 
     /**
      * Initializes the controller class.
@@ -56,13 +57,11 @@ public class LoginController implements Initializable {
             SystemRuleService ruleS = new SystemRuleService(conn);
             
             if (emp.checkAcc(txtUserName.getText(), txtPassword.getText())) {
-//                Utils.getAlertBox("Đăng nhập thành công", Alert.AlertType.INFORMATION).show();
                 emp.getEmp(txtUserName.getText(), txtPassword.getText(), e);
 
                 App.setEmp(e);                
                 
                 App.setSystemRules(ruleS.getSystemRules());
-                System.out.println(ruleS.getSystemRules().get(1).getRule());
                 
                 App.setRoot("orderView");
             } else {

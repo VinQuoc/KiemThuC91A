@@ -24,7 +24,6 @@
             <Font size="14.0" />
          </font></Button>
       <TextField fx:id="txtUserName" layoutX="652.0" layoutY="250.0" />
-      <PasswordField fx:id="txtPassword" layoutX="652.0" layoutY="308.0" />
       <Label alignment="CENTER" layoutX="500.0" layoutY="68.0" prefHeight="55.0" prefWidth="337.0" text="Phần mềm quản lý khách sạn">
          <font>
             <Font size="24.0" />
@@ -35,5 +34,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <PasswordField fx:id="txtPassword" layoutX="652.0" layoutY="308.0" />
    </children>
 </AnchorPane>
