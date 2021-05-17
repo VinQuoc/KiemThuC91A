@@ -9,9 +9,12 @@ import com.lqv.pojo.SystemRule;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,5 +58,77 @@ public class SystemRuleService {
         return rules;
     }
     
-    
+        public List<SystemRule> getRules() throws SQLException {
+            
+        String sql = "SELECT  * FROM rule";
+        PreparedStatement stm = this.getConn().prepareStatement(sql);
+        ResultSet rs = stm.executeQuery();
+        List<SystemRule> rules = new ArrayList<>();
+        while (rs.next()) {
+            SystemRule r = new SystemRule();
+            r.setId(rs.getInt("id"));
+            r.setRule(rs.getString("rule"));
+            r.setDescription(rs.getString("description"));
+            r.setStatus(rs.getBoolean("status"));
+            rules.add(r);
+        }
+        return rules;
+    }
+
+    public boolean addRule(SystemRule r) {
+        if (r.getRule().length() < 1) {
+            return false;
+        }
+        try {
+            String sql = "INSERT INTO rule(rule, description, status) VALUES(?, ?, ?)";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setString(1, r.getRule());
+            stm.setString(2, r.getDescription());
+            stm.setBoolean(3, r.isStatus());
+            
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean updateRule(SystemRule r, int ruleId) { 
+        if (r.getRule().length() < 1) {
+            return false;
+        }
+        if (ruleId == 0) {
+            return false;
+        }
+        try {
+            String sql = "UPDATE rule\n"
+                    + "SET description=?, status=?\n"
+                    + "WHERE id=?";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setString(1, r.getDescription());
+            stm.setBoolean(2, r.isStatus());
+            stm.setInt(3, ruleId);
+
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean deleteRule(int ruleid) {
+        try {
+            String sql = "DELETE FROM rule WHERE id=?";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setInt(1, ruleid);
+
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }   
 }
