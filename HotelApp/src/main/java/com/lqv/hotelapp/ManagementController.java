@@ -84,6 +84,7 @@ public class ManagementController implements Initializable {
 
     private int empId;
     private String error;
+    int i;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,6 +125,9 @@ public class ManagementController implements Initializable {
             });
             return row;
         });
+//        System.out.println("ket qua: " + this.tbEmployee.getItems());
+//        i = 1;
+//        System.out.println("phan tu:" + i++);
     }
 
     private void loadColumns() {
@@ -153,7 +157,7 @@ public class ManagementController implements Initializable {
 //        --------------------------------
         TableColumn colAcc = new TableColumn();
         colAcc.setCellFactory((obj) -> {
-            Button btn = new Button("Tạo tài khoản");
+            Button btn = new Button("Tài khoản");
 
             btn.setOnAction(evt -> {
                 this.handleChoose(evt);
@@ -258,7 +262,6 @@ public class ManagementController implements Initializable {
         }
 
 //        điều kiện chỉnh sửa Account cho nhân viên (chỉ nhân viên đã có hồ sơ trước đó mới được tạo tài khoản)
-
         Connection conn;
         try {
             conn = JdbcUtils.getConn();
@@ -295,7 +298,7 @@ public class ManagementController implements Initializable {
         CreateAccController display = Loader.getController();
 
 //      Lấy tên phòng truyền vào txtRoom
-        display.setNameEmp(emp.getName());
+        display.setEmp(emp);
 
 //      Lấy thông tin object room
         display.getEmpId(emp);
@@ -303,9 +306,9 @@ public class ManagementController implements Initializable {
         Parent p = Loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
-        
+
 //        thao tác xong sẽ load lại trang
-        stage.showAndWait();        
+        stage.showAndWait();
         loadData("");
     }
 

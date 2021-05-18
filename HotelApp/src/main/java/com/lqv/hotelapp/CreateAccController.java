@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,6 +41,8 @@ public class CreateAccController implements Initializable {
     private PasswordField txtCheckPass;
     @FXML
     private Text txtName;
+    @FXML
+    private Button btnDelete;
 
     private int empId;
     private String error;
@@ -49,15 +52,19 @@ public class CreateAccController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     public void getEmpId(Employee e) {
         empId = (e.getId());
     }
 
-    public void setNameEmp(String name) {
-        this.txtName.setText(name);
+    public void setEmp(Employee e) {
+        this.txtName.setText(e.getName());
+        this.txtUsername.setText(e.getUsername());
+        if (this.txtUsername.getText() == null || this.txtUsername.getText() == "") {
+            this.txtUsername.setDisable(false);
+            this.btnDelete.setVisible(false);
+        }
     }
 
     @FXML
@@ -75,7 +82,7 @@ public class CreateAccController implements Initializable {
             error = "Nhập lại mật khẩu không đúng";
             e.setPassword("");
         }
-        if (e.getUsername().length() < 1) {
+        if (txtUsername.getText() == null) {
             error = "Bạn phải nhập tên đăng nhập";
         }
         Connection conn;
@@ -88,10 +95,9 @@ public class CreateAccController implements Initializable {
                         .showAndWait().ifPresent(bt -> {
                             if (bt == ButtonType.OK) {
                                 ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-                                
+
                             }
                         });
-
             } else {
                 Utils.getAlertBox(error, Alert.AlertType.WARNING).show();
             }
@@ -103,4 +109,27 @@ public class CreateAccController implements Initializable {
         error = "";
     }
 
+    @FXML
+    private void deleteAccEmp(ActionEvent event) {
+        this.txtUsername.setText("");
+        Connection conn;
+        try {
+            conn = JdbcUtils.getConn();
+
+            EmployeeService s = new EmployeeService(conn);
+            if (s.deleteAccEmp(empId) == true) {
+                Utils.getAlertBox("Xóa tài khoản nhân viên thành công", Alert.AlertType.CONFIRMATION)
+                        .showAndWait().ifPresent(bt -> {
+                            if (bt == ButtonType.OK) {
+                                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
+                            }
+                        });
+            } else {
+                Utils.getAlertBox("Thao tác thất bại", Alert.AlertType.INFORMATION).show();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SecondaryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

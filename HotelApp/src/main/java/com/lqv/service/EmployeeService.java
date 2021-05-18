@@ -159,7 +159,7 @@ public class EmployeeService {
     }
 
     public boolean updateEmpAcc(Employee e, int empId) {
-        if (e.getUsername().length() < 1) {
+        if (e.getUsername() == null) {
             return false;
         }
         if (e.getPassword().length() < 1) {
@@ -194,8 +194,26 @@ public class EmployeeService {
             Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
+    }    
+    
+    public boolean deleteAccEmp(int empId) {
+        try {
+            String sql = "UPDATE employee\n"
+                    + "SET username=?, password=?\n"
+                    + "WHERE id=?";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setString(1, null);
+            stm.setString(2, null);
+            stm.setInt(3, empId);
 
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     public List<Employee> getEmployees(String kw) throws SQLException {
         if (kw == null) {
             throw new SQLDataException("error");
